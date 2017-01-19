@@ -22,10 +22,10 @@ public class ConvertIntToRomanNumeral {
 		
 		while(cont.equalsIgnoreCase("y")) {
 		
-			userNum = getInt("Please input a number: ");
-			rnString = getAmount(romanNumerals, userNum);		
+			userNum = getInt("Please input a number between 1-3999: ", 1 , 3999);
+			rnString = getRomanNumeralString(romanNumerals, userNum);		
 			System.out.println("Your number in Roman Numerals is:  " + rnString);
-			cont = getChoiceString("Continue? ", "y", "n");
+			cont = getChoiceString("Continue? (y/n): ", "y", "n");
 		
 		}
 
@@ -52,7 +52,7 @@ public class ConvertIntToRomanNumeral {
 		
 	}
 	
-	private static String getAmount(LinkedHashMap<String, Integer> romanNumerals, int num){
+	private static String getRomanNumeralString(LinkedHashMap<String, Integer> romanNumerals, int num){
 		String rnString = "";
 		int numOfChars = 0;
 		
@@ -84,18 +84,23 @@ public class ConvertIntToRomanNumeral {
     	return s;
     }
     
-    public static int getInt(String prompt) {
-        boolean isValid = false;
+
+    
+    public static int getInt(String prompt, int min, int max) {
         int i = 0;
+        boolean isValid = false;
         while (isValid == false) {
             System.out.print(prompt);
             if (userInput.hasNextInt()) {
                 i = userInput.nextInt();
-                isValid = true;
-            } else {
-                System.out.println("!Error! Invalid integer value.");
+	            if (i < min) {
+	                System.out.println( "Error! Number must be greater than " + min);
+	            } else if (i > max) {
+	                System.out.println( "Error! Number must be less than " + max);
+	            } else {
+	                isValid = true;
+	            }
             }
-            userInput.nextLine();
         }
         return i;
     }
